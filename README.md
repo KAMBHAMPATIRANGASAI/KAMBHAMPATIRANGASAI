@@ -43,7 +43,7 @@
 - Logistic Regression  
 - Classification Models  
 - Data Cleaning  
-- EDA (Exploratory Data Analysis)  
+- EDA (Exploratory Data Analysis)
 
 ---
 
