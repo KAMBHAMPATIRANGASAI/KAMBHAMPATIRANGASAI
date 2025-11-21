@@ -80,6 +80,19 @@
 
 ---
 
+## 📊 GitHub Stats
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=KAMBHAMPATIRANGASAI&show_icons=true&theme=dark&count_private=true" height="170" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=KAMBHAMPATIRANGASAI&layout=compact&theme=dark" height="170" />
+</p>
+
+<p align="center">
+  <img src="https://streak-stats.demolab.com?user=KAMBHAMPATIRANGASAI&theme=dark" height="170" />
+</p>
+
+---
+
 ## 📫 Connect With Me
 📧 Email: **rangasaik06@gmail.com**  
 🔗 LinkedIn: **https://linkedin.com/in/ranga-sai-kambhampati-b819b6287**  
