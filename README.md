@@ -72,6 +72,7 @@
 ## 📂 Featured Projects
 
 ### 🔹 **HR Analytics – Predict Employee Attrition**
+![HR Analytics Dashboard](assets/project1.png)
 - Built ML model (Logistic Regression) with 85% accuracy  
 - SHAP analysis to explain top attrition reasons  
 - Designed Power BI dashboard  
@@ -80,6 +81,7 @@
 ---
 
 ### 🔹 **Electric Vehicle Data Analysis**
+![Electric Vehicle Dashboard](assets/project2.png)
 - Analyzed U.S. EV registration trends  
 - Created Tableau dashboards  
 - Studied manufacturers, CAFV eligibility & EV adoption  
@@ -88,7 +90,9 @@
 ---
 
 ### 🔹 **HR Data Analysis Dashboard**
+![HR Data Dashboard](assets/project3.png)
 - Power BI dashboard for HR performance, salary, and demographics  
+- Highlighted retention opportunities and workforce insights 
 🔗 **GitHub:** *https://github.com/KAMBHAMPATIRANGASAI/HR-Data-Analysis*
 
 ---
