@@ -92,7 +92,7 @@
 ### 🔹 **HR Data Analysis Dashboard**
 ![HR Data Dashboard](assets/project3.png)
 - Power BI dashboard for HR performance, salary, and demographics  
-- Highlighted retention opportunities and workforce insights 
+- Highlighted retention opportunities and workforce insights        
 🔗 **GitHub:** *https://github.com/KAMBHAMPATIRANGASAI/HR-Data-Analysis*
 
 ---
