@@ -75,8 +75,8 @@
 - Microsoft Certified: Power BI Data Analyst Associate  
 - Google Analytics Certification  
 - Deloitte Data Analytics Virtual Internship  
-- Electric Vehicle Data Analysis – Tableau  
-- HR Data Analytics – Power BI  
+- Data Visualization with Power BI & Tableau – Aditya University 
+- Data Visualisation: Empowering Business with Effective Insights 
 
 ---
 
