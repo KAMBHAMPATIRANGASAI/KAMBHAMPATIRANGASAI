@@ -298,3 +298,198 @@ if (educationCards.length > 0) {
     });
   }
 }
+
+// ============================================
+// Google Analytics 4 Event Tracking
+// ============================================
+
+// Helper function to send GA4 events
+function trackEvent(eventName, eventParams = {}) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', eventName, eventParams);
+  }
+}
+
+// Track navigation link clicks
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    const sectionName = link.getAttribute('href').replace('#', '') || 'unknown';
+    trackEvent('navigation_click', {
+      'section': sectionName,
+      'link_text': link.textContent.trim()
+    });
+  });
+});
+
+// Track CTA button clicks
+const ctaButtons = document.querySelectorAll('.hero-cta .btn');
+ctaButtons.forEach(button => {
+  button.addEventListener('click', (e) => {
+    const buttonText = button.textContent.trim();
+    const buttonHref = button.getAttribute('href') || '';
+    
+    let eventName = 'cta_click';
+    let eventParams = {
+      'button_text': buttonText,
+      'button_type': button.classList.contains('primary') ? 'primary' : 
+                     button.classList.contains('secondary') ? 'secondary' : 'outline'
+    };
+    
+    // Special tracking for resume download
+    if (buttonHref.includes('Resume') || buttonHref.includes('.pdf')) {
+      eventName = 'resume_download';
+      eventParams.download_type = 'resume';
+    }
+    
+    trackEvent(eventName, eventParams);
+  });
+});
+
+// Track external link clicks (GitHub, LinkedIn, email)
+const externalLinks = document.querySelectorAll('a[href^="http"], a[href^="mailto:"]');
+externalLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    const linkUrl = link.getAttribute('href');
+    const linkText = link.textContent.trim();
+    
+    let linkType = 'external';
+    if (linkUrl.includes('github.com')) {
+      linkType = 'github';
+    } else if (linkUrl.includes('linkedin.com')) {
+      linkType = 'linkedin';
+    } else if (linkUrl.startsWith('mailto:')) {
+      linkType = 'email';
+    }
+    
+    trackEvent('external_link_click', {
+      'link_type': linkType,
+      'link_url': linkUrl,
+      'link_text': linkText
+    });
+  });
+});
+
+// Track project card link clicks
+const projectLinks = document.querySelectorAll('.project-card .link');
+projectLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    const projectCard = link.closest('.project-card');
+    const projectTitle = projectCard ? projectCard.querySelector('h4')?.textContent.trim() : 'unknown';
+    const linkUrl = link.getAttribute('href') || '';
+    
+    trackEvent('project_view', {
+      'project_title': projectTitle,
+      'project_url': linkUrl,
+      'link_text': link.textContent.trim()
+    });
+  });
+});
+
+// Track form submissions
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    // Track form submission attempt
+    trackEvent('form_submit', {
+      'form_type': 'contact',
+      'form_location': 'contact_section'
+    });
+    
+    // Note: Form submission will be tracked by Formspree, but we track the attempt here
+    // You can also add additional tracking after successful submission if needed
+  });
+}
+
+// Track section views using IntersectionObserver
+const sections = document.querySelectorAll('section[id]');
+const sectionViewTracker = {};
+
+if (sections.length > 0 && "IntersectionObserver" in window) {
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          
+          // Only track once per session
+          if (!sectionViewTracker[sectionId]) {
+            sectionViewTracker[sectionId] = true;
+            
+            const sectionName = entry.target.querySelector('.section-heading h3')?.textContent.trim() || 
+                               entry.target.querySelector('.section-heading .eyebrow')?.textContent.trim() || 
+                               sectionId;
+            
+            trackEvent('section_view', {
+              'section_id': sectionId,
+              'section_name': sectionName
+            });
+          }
+        }
+      });
+    },
+    {
+      threshold: 0.3, // Track when 30% of section is visible
+      rootMargin: '0px 0px -100px 0px'
+    }
+  );
+
+  sections.forEach((section) => {
+    sectionObserver.observe(section);
+  });
+}
+
+// Track mobile menu toggle
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.contains('open');
+    trackEvent('mobile_menu_toggle', {
+      'menu_state': isOpen ? 'open' : 'closed'
+    });
+  });
+}
+
+// Track page load and engagement
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    trackEvent('page_view', {
+      'page_title': document.title,
+      'page_path': window.location.pathname
+    });
+  });
+} else {
+  trackEvent('page_view', {
+    'page_title': document.title,
+    'page_path': window.location.pathname
+  });
+}
+
+// Track scroll depth (optional - tracks when user scrolls 25%, 50%, 75%, 100%)
+let scrollDepthTracked = {
+  '25': false,
+  '50': false,
+  '75': false,
+  '100': false
+};
+
+window.addEventListener('scroll', () => {
+  const windowHeight = window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollPercent = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
+  
+  // Track scroll milestones
+  if (scrollPercent >= 25 && !scrollDepthTracked['25']) {
+    scrollDepthTracked['25'] = true;
+    trackEvent('scroll_depth', { 'depth': '25%' });
+  } else if (scrollPercent >= 50 && !scrollDepthTracked['50']) {
+    scrollDepthTracked['50'] = true;
+    trackEvent('scroll_depth', { 'depth': '50%' });
+  } else if (scrollPercent >= 75 && !scrollDepthTracked['75']) {
+    scrollDepthTracked['75'] = true;
+    trackEvent('scroll_depth', { 'depth': '75%' });
+  } else if (scrollPercent >= 100 && !scrollDepthTracked['100']) {
+    scrollDepthTracked['100'] = true;
+    trackEvent('scroll_depth', { 'depth': '100%' });
+  }
+}, { passive: true });
