@@ -4,11 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kambhampati Ranga Sai — MCA graduate and Data Analyst specializing in Excel, SQL, Python, Power BI, and Tableau. View projects, certifications, and academic records in this data analytics portfolio." />
   <title>Kambhampati Ranga Sai | Data Analyst Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <!-- Add version query so browser always reloads latest styles -->
+  <link rel="stylesheet" href="styles.css?v=2" />
   
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HZJ5JWCQF"></script>
@@ -43,10 +45,10 @@
     <div class="hero-content">
       <div class="hero-text">
         <h1 id="hero-title">Hi, I'm <span>Kambhampati Ranga Sai</span></h1>
-        <h2>Data Analyst | MCA Student</h2>
+        <h2>Data Analyst | MCA Graduate</h2>
         <p class="tagline">
           I turn raw data into clear, simple insights using Excel, SQL, Python, Power BI, and Tableau.
-          I enjoy building dashboards and models that help teams make better decisions.
+          I enjoy building dashboards and models that help teams make better decisions, and I am actively open to full-time Data Analyst roles.
         </p>
         <div class="hero-cta">
           <a class="btn primary" href="#projects">View My Projects</a>
@@ -60,7 +62,7 @@
         </div>
       </div>
       <div class="hero-photo">
-        <img src="assets/ranga-sai-profile.jpg" alt="Portrait of Kambhampati Ranga Sai" loading="lazy" />
+        <img src="assets/ranga-sai-profile.png" alt="Portrait of Kambhampati Ranga Sai" loading="eager" />
       </div>
     </div>
   </header>
@@ -73,14 +75,14 @@
       </div>
       <div class="about-content">
         <div class="about-text">
-          <p>I am an MCA student and Data Analyst with hands-on experience working on real business and HR datasets. I enjoy cleaning data, building dashboards, and explaining insights in a clear way.</p>
-          <p>During my internships and projects, I have worked with Excel, SQL, Python, Power BI, and Tableau to solve real-world problems like employee attrition, workforce analysis, and electric vehicle adoption.</p>
-          <p>My goal is to grow as a Data Analyst and help organizations make smart, data-driven decisions.</p>
+          <p>I am an MCA graduate and Data Analyst with hands-on experience working on real business, HR, and analytics projects. I enjoy cleaning data, building dashboards, and explaining insights in a clear and actionable way.</p>
+          <p>During my internships and projects, I have worked with Excel, SQL, Python, Power BI, and Tableau to solve real-world problems such as employee attrition, workforce analysis, and electric vehicle adoption.</p>
+          <p>I am actively looking for full-time Data Analyst roles where I can apply my skills to help organizations make smart, data-driven decisions.</p>
         </div>
         <div class="about-highlights">
           <article class="highlight-card">
             <span>🎓</span>
-            <p>MCA student with 8.20 GPA</p>
+            <p>MCA graduate with 8.20 GPA</p>
           </article>
           <article class="highlight-card">
             <span>🏆</span>
@@ -303,13 +305,15 @@
       <div class="education-grid">
         <article class="education-card">
           <h4>Master of Computer Applications (MCA)</h4>
-          <p class="institution">Aurora Deemed to Be University</p>
+          <p class="institution">Aurora Higher Education And Research Academy (Deemed To Be University)</p>
           <p>2023 – 2025 | GPA: 8.20</p>
+          <p><a class="link" href="assets/certifications/CMM of MCA.pdf" target="_blank" rel="noreferrer">View MCA CMM Certificate</a></p>
         </article>
         <article class="education-card">
-          <h4>Bachelor of Science – Mathematics, Statistics, and Computer Science (MSCs)</h4>
+          <h4>Bachelor of Science – Mathematics, Statistics, and Computer Science (MSCS)</h4>
           <p class="institution">Sri Harshini Degree College</p>
           <p>2020 – 2023 | GPA: 7.00</p>
+          <p><a class="link" href="assets/certifications/CMM of Degree.pdf" target="_blank" rel="noreferrer">View BSc CMM Certificate</a></p>
         </article>
       </div>
     </section>
@@ -318,7 +322,7 @@
   <section id="contact" class="section contact">
     <div class="section-heading">
       <p class="eyebrow">Contact</p>
-      <h3>Let’s Work Together</h3>
+        <h3>Let’s Work Together</h3>
       <p>📍Hyderabad, Telangana, India (500039)</p>
     </div>
     <div class="contact-grid">
@@ -351,6 +355,20 @@
   <footer class="footer">
     <p>© <span id="year"></span> Kambhampati Ranga Sai. Built with focus on clarity and insight.</p>
   </footer>
+
+  <!-- Inline certificate viewer modal -->
+  <div id="certificate-modal" class="certificate-modal" aria-hidden="true">
+    <div class="certificate-modal-backdrop"></div>
+    <div class="certificate-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="certificate-modal-title">
+      <div class="certificate-modal-header">
+        <h4 id="certificate-modal-title">Certificate</h4>
+        <button id="certificate-modal-close" class="certificate-modal-close" aria-label="Close certificate viewer">×</button>
+      </div>
+      <div class="certificate-modal-body">
+        <iframe class="certificate-modal-frame" src="" title="Certificate preview" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

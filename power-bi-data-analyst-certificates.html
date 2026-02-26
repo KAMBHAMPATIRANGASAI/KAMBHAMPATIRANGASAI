@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=2" />
 </head>
-<body>
+<body class="certificate-details-page">
   <main class="section">
     <div class="section-heading">
       <p class="eyebrow">Certification Details</p>
@@ -17,11 +17,11 @@
       <p>Below is the main career path certificate, followed by the module certificates earned while completing the path.</p>
     </div>
 
-    <div class="cards-grid">
-      <article class="cert-card">
+    <div class="cards-grid" style="max-width: 720px;">
+      <article class="cert-card main-certificate-card">
         <h4>Main Certificate</h4>
         <p>This is the primary certificate for completing the full Microsoft Data Analyst career path.</p>
-        <a class="link" href="assets/certifications/Data Analyst Career Path - Microsoft.pdf" target="_blank" rel="noreferrer">
+        <a class="link cert-view-link" href="assets/certifications/Data Analyst Career Path - Microsoft.pdf" data-cert-title="Microsoft Data Analyst – Main Certificate">
           Open Main Certificate (PDF)
           <span class="arrow" aria-hidden="true">↗</span>
         </a>
@@ -33,19 +33,72 @@
         <h3 id="power-bi-modules-heading">Module Certificates</h3>
         <p>These certificates were issued for each step in the learning path.</p>
       </div>
-      <ul class="skills-grid">
-        <li><a class="link" href="assets/certifications/Get started with Microsoft data analytics.pdf" target="_blank" rel="noreferrer">Get started with Microsoft data analytics</a></li>
-        <li><a class="link" href="assets/certifications/Prepare data for analysis with Power BI.pdf" target="_blank" rel="noreferrer">Prepare data for analysis with Power BI</a></li>
-        <li><a class="link" href="assets/certifications/Prepare and visualize data with Microsoft Power BI.pdf" target="_blank" rel="noreferrer">Prepare and visualize data with Microsoft Power BI</a></li>
-        <li><a class="link" href="assets/certifications/Model data with Power BI.pdf" target="_blank" rel="noreferrer">Model data with Power BI</a></li>
-        <li><a class="link" href="assets/certifications/Use DAX in semantic models.pdf" target="_blank" rel="noreferrer">Use DAX in semantic models</a></li>
-        <li><a class="link" href="assets/certifications/Design effective reports in Power BI.pdf" target="_blank" rel="noreferrer">Design effective reports in Power BI</a></li>
-        <li><a class="link" href="assets/certifications/Create and use analytics reports with Power BI.pdf" target="_blank" rel="noreferrer">Create and use analytics reports with Power BI</a></li>
-        <li><a class="link" href="assets/certifications/Manage and secure Power BI.pdf" target="_blank" rel="noreferrer">Manage and secure Power BI</a></li>
+      <ul class="skills-grid cert-module-list">
+        <li><a class="link cert-view-link" href="assets/certifications/Get started with Microsoft data analytics.pdf" data-cert-title="Get started with Microsoft data analytics">Get started with Microsoft data analytics</a></li>
+        <li><a class="link cert-view-link" href="assets/certifications/Prepare data for analysis with Power BI.pdf" data-cert-title="Prepare data for analysis with Power BI">Prepare data for analysis with Power BI</a></li>
+        <li><a class="link cert-view-link" href="assets/certifications/Prepare and visualize data with Microsoft Power BI.pdf" data-cert-title="Prepare and visualize data with Microsoft Power BI">Prepare and visualize data with Microsoft Power BI</a></li>
+        <li><a class="link cert-view-link" href="assets/certifications/Model data with Power BI.pdf" data-cert-title="Model data with Power BI">Model data with Power BI</a></li>
+        <li><a class="link cert-view-link" href="assets/certifications/Use DAX in semantic models.pdf" data-cert-title="Use DAX in semantic models">Use DAX in semantic models</a></li>
+        <li><a class="link cert-view-link" href="assets/certifications/Design effective reports in Power BI.pdf" data-cert-title="Design effective reports in Power BI">Design effective reports in Power BI</a></li>
+        <li><a class="link cert-view-link" href="assets/certifications/Create and use analytics reports with Power BI.pdf" data-cert-title="Create and use analytics reports with Power BI">Create and use analytics reports with Power BI</a></li>
+        <li><a class="link cert-view-link" href="assets/certifications/Manage and secure Power BI.pdf" data-cert-title="Manage and secure Power BI">Manage and secure Power BI</a></li>
       </ul>
 
       <p><a class="link" href="index.html">← Back to Portfolio</a></p>
     </section>
   </main>
+
+  <div id="certificate-modal" class="certificate-modal" aria-hidden="true">
+    <div class="certificate-modal-backdrop"></div>
+    <div class="certificate-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="certificate-modal-title">
+      <div class="certificate-modal-header">
+        <h4 id="certificate-modal-title">Certificate</h4>
+        <button id="certificate-modal-close" class="certificate-modal-close" aria-label="Close certificate viewer">×</button>
+      </div>
+      <div class="certificate-modal-body">
+        <iframe class="certificate-modal-frame" src="" title="Certificate preview" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var modal = document.getElementById('certificate-modal');
+    var frame = modal && modal.querySelector('.certificate-modal-frame');
+    var titleEl = document.getElementById('certificate-modal-title');
+    var closeBtn = document.getElementById('certificate-modal-close');
+    var backdrop = modal && modal.querySelector('.certificate-modal-backdrop');
+
+    function openCert(url, title) {
+      if (!modal || !frame) return;
+      frame.src = url;
+      if (titleEl) titleEl.textContent = title || 'Certificate';
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCert() {
+      if (!modal || !frame) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setTimeout(function() { frame.src = ''; }, 200);
+    }
+    if (closeBtn) closeBtn.addEventListener('click', closeCert);
+    if (backdrop) backdrop.addEventListener('click', closeCert);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeCert();
+    });
+    document.querySelectorAll('.cert-view-link').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var href = a.getAttribute('href');
+        if (!href) return;
+        var title = a.getAttribute('data-cert-title') || a.textContent.trim();
+        openCert(href, title);
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

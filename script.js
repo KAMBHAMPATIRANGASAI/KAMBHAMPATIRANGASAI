@@ -50,8 +50,12 @@ const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelector(".nav-links");
 
 if (navToggle && navLinks) {
+  navToggle.setAttribute("aria-controls", "primary-navigation");
+  navToggle.setAttribute("aria-expanded", "false");
+
   navToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
+    const isOpen = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
   });
 }
 
@@ -311,8 +315,8 @@ function trackEvent(eventName, eventParams = {}) {
 }
 
 // Track navigation link clicks
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-navLinks.forEach(link => {
+const navAnchorLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+navAnchorLinks.forEach(link => {
   link.addEventListener('click', (e) => {
     const sectionName = link.getAttribute('href').replace('#', '') || 'unknown';
     trackEvent('navigation_click', {
@@ -383,6 +387,85 @@ projectLinks.forEach(link => {
       'project_url': linkUrl,
       'link_text': link.textContent.trim()
     });
+  });
+});
+
+// ============================================
+// Inline certificate viewer modal
+// ============================================
+
+const certificateModal = document.getElementById('certificate-modal');
+const certificateFrame = certificateModal ? certificateModal.querySelector('.certificate-modal-frame') : null;
+const certificateTitleEl = document.getElementById('certificate-modal-title');
+const certificateCloseBtn = document.getElementById('certificate-modal-close');
+const certificateBackdrop = certificateModal ? certificateModal.querySelector('.certificate-modal-backdrop') : null;
+
+function openCertificateModal(url, title) {
+  if (!certificateModal || !certificateFrame) return;
+
+  certificateFrame.setAttribute('src', url);
+  if (certificateTitleEl) {
+    certificateTitleEl.textContent = title || 'Certificate';
+  }
+
+  certificateModal.classList.add('open');
+  certificateModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  trackEvent('certificate_modal_open', {
+    certificate_url: url,
+    certificate_title: title || 'Unknown'
+  });
+}
+
+function closeCertificateModal() {
+  if (!certificateModal || !certificateFrame) return;
+
+  certificateModal.classList.remove('open');
+  certificateModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+
+  // Clear src after close to stop PDF rendering
+  setTimeout(() => {
+    certificateFrame.setAttribute('src', '');
+  }, 200);
+}
+
+if (certificateCloseBtn) {
+  certificateCloseBtn.addEventListener('click', () => {
+    closeCertificateModal();
+  });
+}
+
+if (certificateBackdrop) {
+  certificateBackdrop.addEventListener('click', () => {
+    closeCertificateModal();
+  });
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && certificateModal && certificateModal.classList.contains('open')) {
+    closeCertificateModal();
+  }
+});
+
+// Attach modal behaviour to certification & education certificate links
+const certificateLinks = document.querySelectorAll(
+  '#certifications .cert-card .link[href$=".pdf"], #education .link[href$=".pdf"]'
+);
+
+certificateLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    const url = link.getAttribute('href');
+    if (!url) return;
+
+    const article = link.closest('article');
+    const title =
+      (article && article.querySelector('h4') && article.querySelector('h4').textContent.trim()) ||
+      link.textContent.trim();
+
+    openCertificateModal(url, title);
   });
 });
 
