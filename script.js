@@ -1,48 +1,33 @@
-// Animate hero title letters falling down
+// Hero title animation removed – keep original markup for clean spacing
+// (previous logic wrapped every character in a span, which caused layout issues
+// and made the DOM appear as one letter per line when inspected.)
+// Leave the <h1 id="hero-title"> content as authored in HTML.
 const heroTitle = document.getElementById("hero-title");
+// if desired, you could still add a simple fade-in via CSS rather than per-letter JS
 if (heroTitle) {
-  // Store original HTML structure
-  const originalHTML = heroTitle.innerHTML;
-  
-  // Extract text from span and wrap it
-  const spanMatch = originalHTML.match(/<span>(.*?)<\/span>/);
-  if (spanMatch) {
-    const spanText = spanMatch[1];
-    const wrappedSpanText = spanText.split("").map(char => {
-      if (char === " ") {
-        return '<span class="letter space"> </span>';
-      }
-      return `<span class="letter">${char}</span>`;
-    }).join("");
-    
-    // Get text before span
-    const beforeSpan = originalHTML.split("<span>")[0];
-    const wrappedBefore = beforeSpan.split("").map(char => {
-      if (char === " ") {
-        return '<span class="letter space"> </span>';
-      }
-      return `<span class="letter">${char}</span>`;
-    }).join("");
-    
-    // Reconstruct HTML
-    heroTitle.innerHTML = wrappedBefore + '<span>' + wrappedSpanText + '</span>';
-  } else {
-    // No span, just wrap all text
-    const text = heroTitle.textContent;
-    heroTitle.innerHTML = text.split("").map(char => {
-      if (char === " ") {
-        return '<span class="letter space"> </span>';
-      }
-      return `<span class="letter">${char}</span>`;
-    }).join("");
-  }
-  
-  // Animate letters
-  const letters = heroTitle.querySelectorAll(".letter");
-  letters.forEach((letter, index) => {
-    setTimeout(() => {
-      letter.classList.add("animate");
-    }, index * 50);
+  // force a reflow so css transitions could run if added later
+  heroTitle.classList.add('ready');
+}
+
+// Contact form validation and submission tracking
+const contactForm = document.querySelector(".contact-form");
+if (contactForm) {
+  const emailInput = contactForm.querySelector('input[name="email"]');
+  contactForm.addEventListener("submit", function(e) {
+    const email = emailInput.value.trim();
+    // basic pattern already applied via HTML, but double-check with JS too
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      alert("Please enter a valid email address.");
+      e.preventDefault();
+      return;
+    }
+    // Track form submission attempt
+    trackEvent('form_submit', {
+      'form_type': 'contact',
+      'form_location': 'contact_section'
+    });
+    // Note: Form submission will be tracked by Formspree as well
   });
 }
 
@@ -469,20 +454,6 @@ certificateLinks.forEach((link) => {
   });
 });
 
-// Track form submissions
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    // Track form submission attempt
-    trackEvent('form_submit', {
-      'form_type': 'contact',
-      'form_location': 'contact_section'
-    });
-    
-    // Note: Form submission will be tracked by Formspree, but we track the attempt here
-    // You can also add additional tracking after successful submission if needed
-  });
-}
 
 // Track section views using IntersectionObserver
 const sections = document.querySelectorAll('section[id]');

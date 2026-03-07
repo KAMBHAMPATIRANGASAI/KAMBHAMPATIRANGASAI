@@ -44,7 +44,7 @@
     </nav>
     <div class="hero-content">
       <div class="hero-text">
-        <h1 id="hero-title">Hi, I'm <span>Kambhampati Ranga Sai</span></h1>
+        <h1 id="hero-title">Hi, I'm Kambhampati <span>Ranga Sai</span></h1>
         <h2>Data Analyst | MCA Graduate</h2>
         <p class="tagline">
           I turn raw data into clear, simple insights using Excel, SQL, Python, Power BI, and Tableau.
@@ -339,7 +339,14 @@
         </label>
         <label>
           Email
-          <input type="email" name="email" placeholder="your@email.com" required />
+          <input
+          type="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+          pattern=".+@(gmail\.com|yahoo\.com|outlook\.com)"
+          title="Please enter an email address using gmail.com, yahoo.com, or outlook.com"
+        />
         </label>
         <label>
           Message
@@ -347,13 +354,12 @@
         </label>
         <input type="hidden" name="_subject" value="Portfolio Contact" />
         <button type="submit" class="btn primary">Send Message</button>
-        <p class="form-note">Powered by Formspree — you’ll receive the message directly via email.</p>
       </form>
     </div>
   </section>
 
   <footer class="footer">
-    <p>© <span id="year"></span> Kambhampati Ranga Sai. Built with focus on clarity and insight.</p>
+    <p>© <span id="year"></span> Kambhampati Ranga Sai.</p>
   </footer>
 
   <!-- Inline certificate viewer modal -->
