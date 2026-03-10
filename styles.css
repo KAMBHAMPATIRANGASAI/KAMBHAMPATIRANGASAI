@@ -1032,3 +1032,84 @@ section[id] {
   }
 }
 
+/* additional breakpoints to support small phones/tablets */
+@media (max-width: 600px) {
+  /* move photo above text by reversing layout order */
+  .hero-content {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  /* typography adjustments */
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+  .hero-text h2 {
+    font-size: 1.25rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+
+  /* stack cards vertically */
+  .skills-grid,
+  .cards-grid,
+  .strengths-grid,
+  .about-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .project-card,
+  .timeline-card {
+    padding: 1rem;
+  }
+
+  /* reduce padding/margins on sections */
+  .section {
+    padding: 3rem 5vw;
+  }
+
+  /* make nav links easier to tap */
+  .nav-links a {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  /* at smallest sizes keep a small centered photo rather than hide it */
+  .hero-photo {
+    display: block;
+    margin: 0 auto 1.5rem;
+    width: 180px;
+    height: 180px;
+  }
+
+  .hero-photo img {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* make strengths boxes more compact and remove lift-on-touch */
+  .strengths-grid {
+    gap: 1rem; /* more generous vertical spacing */
+  }
+  .strengths-grid p {
+    margin: 0;
+    padding: 0.7rem 1rem; /* bump padding for better separation */
+  }
+  /* touch devices don't need hover animation */
+  .strengths-grid p:hover {
+    transform: none;
+  }
+}
+
+
