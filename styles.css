@@ -714,6 +714,33 @@ section[id] {
   margin: 0.2rem 0 0.8rem;
 }
 
+.featured-program {
+  border-color: rgba(56, 189, 248, 0.75);
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.24), transparent 52%),
+    radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.12), transparent 56%),
+    var(--surface);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.75rem;
+  padding: 0.25rem 0.7rem;
+  text-transform: uppercase;
+}
+
+.education-details {
+  color: var(--muted);
+  padding-left: 1.2rem;
+}
+
 .contact {
   background:
     radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
@@ -873,10 +900,7 @@ section[id] {
 .certificate-modal-backdrop {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.35), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.35), transparent 60%),
-    rgba(15, 23, 42, 0.92);
+  background: rgba(15, 23, 42, 0.92);
   backdrop-filter: blur(18px);
 }
 
@@ -886,35 +910,18 @@ section[id] {
   max-height: calc(100vh - 4rem);
   border-radius: 20px;
   padding: 1.25rem 1.25rem 1.5rem;
-  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 55%)
-              rgba(15, 23, 42, 0.98);
+  background: rgba(15, 23, 42, 0.98);
   border: 1px solid rgba(148, 163, 184, 0.55);
   box-shadow: 0 30px 120px rgba(0, 0, 0, 0.85);
   overflow: hidden;
 }
 
 .certificate-modal-dialog::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background:
-    conic-gradient(from 0deg,
-      rgba(56, 189, 248, 0.08),
-      rgba(129, 140, 248, 0.3),
-      rgba(14, 165, 233, 0.4),
-      rgba(56, 189, 248, 0.08));
-  mask:
-    linear-gradient(#000, #000) padding-box,
-    linear-gradient(transparent, transparent) border-box;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  content: none;
 }
 
 .certificate-modal.open .certificate-modal-dialog::before {
-  opacity: 1;
-  animation: cardGlow 7s linear infinite;
+  animation: none;
 }
 
 .certificate-modal-header {
@@ -955,7 +962,7 @@ section[id] {
 .certificate-modal-body {
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid rgba(30, 64, 175, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.45);
   background: #020617;
 }
 
@@ -1111,5 +1118,3 @@ section[id] {
     transform: none;
   }
 }
-
-
